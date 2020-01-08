@@ -170,7 +170,15 @@ object LeakCanary {
      */
     @Deprecated("This is a no-op, set a custom leakingObjectFinder instead")
     val useExperimentalLeakFinders: Boolean = false
-  )
+  ) {
+
+    /**
+     * Construct a new Config via [ConfigBuilder]
+     */
+    @Suppress("NEWER_VERSION_IN_SINCE_KOTLIN")
+    @SinceKotlin("999.9")
+    fun newBuilder() = ConfigBuilder(this)
+  }
 
   /**
    * The current LeakCanary configuration. Can be updated at any time, usually by replacing it with
@@ -180,7 +188,7 @@ object LeakCanary {
    * LeakCanary.config = LeakCanary.config.copy(computeRetainedHeapSize = true)
    * ```
    */
-  @Volatile
+  @JvmStatic @Volatile
   var config: Config = if (AppWatcher.isInstalled) Config() else InternalLeakCanary.noInstallConfig
     set(newConfig) {
       val previousConfig = field
