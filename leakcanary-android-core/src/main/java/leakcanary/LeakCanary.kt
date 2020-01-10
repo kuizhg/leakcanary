@@ -1,3 +1,5 @@
+@file:Suppress("NEWER_VERSION_IN_SINCE_KOTLIN")
+
 package leakcanary
 
 import android.content.Intent
@@ -175,8 +177,7 @@ object LeakCanary {
     /**
      * Construct a new Config via [ConfigBuilder]
      */
-    @Suppress("NEWER_VERSION_IN_SINCE_KOTLIN")
-    @SinceKotlin("999.9")
+    @SinceKotlin("999.9") // Hide from Kotlin code, this is needed only for Java callers
     fun newBuilder() = ConfigBuilder(this)
   }
 
